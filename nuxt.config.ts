@@ -9,6 +9,10 @@ export default defineNuxtConfig({
     preset: "cloudflare-pages"
   },
   content: {
+    database: {
+      type: 'd1',
+      bindingName: 'DB'
+    },
     preview: {
       api: 'https://api.nuxt.studio'
     },
@@ -27,10 +31,6 @@ export default defineNuxtConfig({
         },
       },
     },
-    database: {
-      type: 'd1',
-      bindingName: 'DB'
-    }
   },
   shadcn: {
     prefix: 'Ui',
