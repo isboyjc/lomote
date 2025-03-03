@@ -6,11 +6,7 @@ const currentDir = dirname(fileURLToPath(import.meta.url));
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   nitro: {
-    preset: "cloudflare-pages",
-    cloudflare: {
-      // @ts-ignore
-      d1Databases: ['DB']
-    }
+    preset: "cloudflare-pages"
   },
   content: {
     preview: {
