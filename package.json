@@ -32,5 +32,23 @@
 		"tailwindcss-animate": "^1.0.7",
 		"typescript": "^5.8.2",
 		"wrangler": "^3.111.0"
+	},
+	"pnpm": {
+		"ignoredBuiltDependencies": [
+			"@parcel/watcher",
+			"better-sqlite3",
+			"esbuild",
+			"sharp",
+			"vue-demi",
+			"workerd"
+		],
+		"onlyBuiltDependencies": [
+			"@parcel/watcher",
+			"better-sqlite3",
+			"esbuild",
+			"sharp",
+			"vue-demi",
+			"workerd"
+		]
 	}
 }
