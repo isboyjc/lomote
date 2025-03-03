@@ -1,26 +1,45 @@
 {
-	"name": "nuxt-app",
+	"name": "lomote",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
-		"preview": "pnpm run build && wrangler pages dev",
-		"postinstall": "nuxt prepare",
-		"deploy": "pnpm run build && wrangler pages deploy",
-		"cf-typegen": "wrangler types"
+		"postinstall": "nuxt prepare"
 	},
 	"dependencies": {
+		"@nuxt/icon": "^1.10.3",
+		"@nuxt/image": "^1.9.0",
+		"@nuxt/scripts": "^0.10.5",
+		"@nuxtjs/color-mode": "^3.5.2",
+		"@nuxtjs/mdc": "^0.14.0",
+		"@vueuse/core": "^12.7.0",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"lucide-vue-next": "^0.477.0",
 		"nuxt": "^3.15.4",
+		"nuxt-og-image": "^4.1.5",
+		"reka-ui": "^2.0.2",
+		"shadcn-nuxt": "1.0.2",
+		"tailwind-merge": "^3.0.2",
 		"vue": "latest",
 		"vue-router": "latest"
 	},
 	"devDependencies": {
-		"@nuxt/content": "^3.1.1",
 		"@cloudflare/workers-types": "^4.20250214.0",
+		"@nuxt/content": "^3.1.1",
+		"@nuxt/kit": "^3.15.4",
+		"@nuxtjs/tailwindcss": "^6.13.1",
+		"@vueuse/nuxt": "^12.7.0",
+		"eslint-plugin-tailwindcss": "^3.18.0",
 		"h3": "^1.15.0",
 		"nitro-cloudflare-dev": "^0.2.1",
+		"shiki": "^3.1.0",
+		"tailwindcss-animate": "^1.0.7",
+		"taze": "^18.6.0",
+		"typescript": "^5.8.2",
 		"wrangler": "^3.109.2"
-	}
+	},
+	"packageManager": "pnpm@10.5.2+sha1.ca68c0441df195b7e2992f1d1cb12fb731f82d78"
 }
