@@ -45,6 +45,8 @@ export default defineNuxtConfig({
     "@nuxt/content",
     '@nuxt/icon',
     '@vueuse/nuxt',
+    '@nuxtjs/color-mode',
+    '@nuxt/image',
   ],
   shadcn: {
     prefix: 'Ui',

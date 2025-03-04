@@ -1,3 +1,3 @@
-# My First Page1
+# My First Page
 
-Here is some content.1
+Here is some content.
