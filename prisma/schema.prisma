@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
+}
+
+// 用户状态枚举
+enum UserStatus {
+  active // 活跃状态
+  pending // 待处理状态
+  restricted // 受限状态
+  banned // 封禁状态
+  inactive // 非活跃状态
+}
+
+// 性别枚举
+enum GenderType {
+  male // 男性
+  female // 女性
+  other // 其他
+  prefer_not_to_say // 不愿透露
+}
+
+// 权限类型枚举
+enum PermissionType {
+  system // 系统级权限
+  page // 页面级权限
+  module // 模块级权限
+  operation // 操作级权限
+  data // 数据级权限
+}
+
+// 用户表 - 扩展自 Supabase Auth
+model User {
+  id            String      @id @db.Uuid /// 用户唯一标识，与Supabase Auth用户ID保持一致
+  full_name     String? /// 用户全名
+  user_name     String? /// 用户名
+  avatar_url    String? /// 头像URL
+  email         String? /// 电子邮箱
+  bio           String? /// 个人简介
+  gender        GenderType? /// 性别
+  birthday      DateTime?   @db.Date /// 生日
+  status        UserStatus  @default(active) /// 用户状态，默认为活跃
+  is_deleted    Boolean     @default(false) /// 是否已删除，软删除标记
+  deletion_date DateTime?   @db.Timestamptz() /// 删除日期
+  last_login_at DateTime?   @db.Timestamptz() /// 最后登录时间
+  created_at    DateTime    @default(now()) @db.Timestamptz() /// 创建时间
+  updated_at    DateTime    @default(now()) @db.Timestamptz() /// 更新时间
+
+  // 关系
+  user_roles UserRole[] /// 用户角色关联
+
+  @@map("users")
+}
+
+// 权限表
+model Permission {
+  id          Int            @id @default(autoincrement()) @db.Integer /// 权限ID，自增主键
+  name        String /// 权限名称
+  code        String         @unique /// 权限编码，唯一标识
+  parent_id   Int? /// 父权限ID
+  type        PermissionType /// 权限类型
+  description String? /// 权限描述
+  created_at  DateTime       @default(now()) @db.Timestamptz() /// 创建时间
+  updated_at  DateTime       @default(now()) @db.Timestamptz() /// 更新时间
+
+  // 自关联关系
+  parent   Permission?  @relation("PermissionToPermission", fields: [parent_id], references: [id]) /// 父权限
+  children Permission[] @relation("PermissionToPermission") /// 子权限
+
+  // 关系
+  role_permissions RolePermission[] /// 角色权限关联
+
+  @@map("permissions")
+}
+
+// 角色表
+model Role {
+  id          Int      @id @default(autoincrement()) @db.Integer /// 角色ID，自增主键
+  name        String   @unique /// 角色名称，唯一
+  description String? /// 角色描述
+  is_system   Boolean  @default(false) /// 是否为系统角色
+  created_at  DateTime @default(now()) @db.Timestamptz() /// 创建时间
+  updated_at  DateTime @default(now()) @db.Timestamptz() /// 更新时间
+
+  // 关系
+  role_permissions RolePermission[] /// 角色权限关联
+  user_roles       UserRole[] /// 用户角色关联
+
+  @@map("roles")
+}
+
+// 角色权限关联表
+model RolePermission {
+  id            Int      @id @default(autoincrement()) @db.Integer /// 关联ID，自增主键
+  role_id       Int /// 角色ID
+  permission_id Int /// 权限ID
+  created_at    DateTime @default(now()) @db.Timestamptz() /// 创建时间
+
+  // 关系
+  role       Role       @relation(fields: [role_id], references: [id]) /// 角色
+  permission Permission @relation(fields: [permission_id], references: [id]) /// 权限
+
+  @@unique([role_id, permission_id]) /// 确保角色和权限的组合唯一
+  @@map("role_permissions")
+}
+
+// 用户角色关联表
+model UserRole {
+  id         Int      @id @default(autoincrement()) @db.Integer /// 关联ID，自增主键
+  user_id    String   @db.Uuid /// 用户ID
+  role_id    Int /// 角色ID
+  created_at DateTime @default(now()) @db.Timestamptz() /// 创建时间
+
+  // 关系
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade) /// 用户，级联删除
+  role Role @relation(fields: [role_id], references: [id]) /// 角色
+
+  @@unique([user_id, role_id]) /// 确保用户和角色的组合唯一
+  @@map("user_roles")
+}

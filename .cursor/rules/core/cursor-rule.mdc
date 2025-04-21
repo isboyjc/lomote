@@ -1,0 +1,112 @@
+---
+description: 当需要创建规则、更新规则或从用户那里学习应该保留为新规则时使用
+globs: .cursor/rules/*.mdc
+alwaysApply: false
+---
+
+# Cursor Rule 规则格式规范
+
+## 规则文件模板结构
+
+```mdc
+---
+description: 动作 触发条件 结果 格式
+globs: .cursor/rules/**/*.mdc
+alwaysApply: {true 或 false}
+---
+
+# 规则标题
+
+## 使用场景
+- 何时应用此规则
+- 前提条件或要求
+
+## 要求
+- 简明的可执行项目
+- 每个要求必须可测试
+
+## 示例
+<example>
+好的简洁示例及其说明
+</example>
+
+<example type="invalid">
+错误的简洁示例及其说明
+</example>
+
+## 关键规则
+  - 始终执行 X
+  - 绝不执行 Y
+```
+
+## 文件组织
+
+### 位置
+- 路径：`.cursor/rules/`
+- 扩展名：`.mdc`
+
+### 命名规范
+
+- 文件名使用 kebab-case 格式
+- 始终使用 .mdc 扩展
+- 让命名可以直观描述规则的目的
+- 私有规则：_name.mdc
+
+### Glob 模式示例
+常见文件类型的 glob 模式：
+- 核心标准：.cursor/rules/*.mdc
+- 语言规则：src/**/*.{js,ts}
+- 测试标准：**/*.test.{js,ts}
+- React 组件：src/components/**/*.tsx
+- 文档：docs/**/*.md
+- 配置文件：*.config.{js,json}
+- 构建产物：dist/**/*
+- 多扩展名：src/**/*.{js,jsx,ts,tsx}
+- 多文件：dist/**/*, docs/**/*.md
+
+## 必需字段
+
+### 前置信息
+- description：动作 触发条件 结果 格式
+- globs：`文件和文件夹的 glob 模式`
+- alwaysApply：{true 或 false} - 为 true 时将附加到每个对话（但前置信息仍然重要！）
+
+### 正文
+- 使用场景
+- 要求
+- 示例：有效和无效示例
+- 关键规则：最关键规则的简短总结
+
+## 格式指南
+
+- 主要使用简洁的 Markdown
+- 仅限使用以下 XML 标签：
+  - <example>
+  - <danger>
+  - <required>
+- XML 标签内容或嵌套标签必须缩进 2 个空格
+- 如果能更好地帮助 AI 理解规则，可以使用表情符号和 Mermaid 图表（但不要冗余）
+
+## 关键规则
+  - 始终将规则文件放在 PROJECT_ROOT/.cursor/rules/ 中
+  - 保持前置信息描述在 120 字符以内，同时保持 AI 代理能清晰理解规则用途
+  - 保持规则 DRY - 不要重复或过度解释
+  - 使用 AI 代理容易理解的简洁 markdown
+  - 前置信息必须包含 description、globs 和 alwaysApply，即使值为 null
+  - 使用标准的 glob 模式，无需引号（如：*.js, src/**/*.ts）
+  - 尽量保持规则总行数在 50 行以内，最好在 25 行以内（除非有图表或较长的必要示例）
+  - 必须包含有效和无效示例
+  - glob 模式不需要引号
+
+## 示例
+
+<example>
+输出位置： .cursor/rules/my-rule.mdc
+</example>
+
+<example type="invalid">
+输出位置：
+  - rules/my-rule.mdc
+  - my-rule.mdc
+  - .rules/my-rule.mdc
+</example>
