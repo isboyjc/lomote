@@ -9,7 +9,7 @@ import {
   DATA_ERROR
 } from '@/lib/server'
 import { prisma } from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/generated/prisma'
 
 // 缓存类型
 type PermissionTreeCache = {

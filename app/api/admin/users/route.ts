@@ -9,7 +9,7 @@ import {
   DATA_ERROR,
   USER_ERROR
 } from '@/lib/server'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/generated/prisma'
 
 /**
  * 获取用户列表或单个用户详情
