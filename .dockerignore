@@ -1,0 +1,43 @@
+# 依赖
+node_modules
+.pnpm-store
+
+# 构建输出
+.next
+out
+
+# 本地环境文件
+.env*.local
+.env
+
+# 日志
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 编辑器和IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 测试
+coverage
+
+# 调试
+.turbo
+.vercel
+.tscache
+
+# 其他
+README.md
+.git
+.github
+docker-compose.yml
+Dockerfile
+.dockerignore 
