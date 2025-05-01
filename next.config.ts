@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
@@ -7,10 +7,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'public-cdn.bblmw.cn',
-      },
-    ],
-  },
-};
+        hostname: 'public-cdn.bblmw.cn'
+      }
+    ]
+  }
+}
 
-export default nextConfig;
+export default nextConfig
