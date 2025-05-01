@@ -9,7 +9,7 @@ import {
   DATA_ERROR
 } from '@/lib/server'
 import { prisma } from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/generated/prisma'
 
 /**
  * 获取权限列表或单个权限
